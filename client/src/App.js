@@ -1,13 +1,19 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Login from './Login';
 // import { Route, Switch } from 'react-router-dom';
 // import { useContext } from 'react';
 
 function App() {
+  const [currentUser, setCurrentUser] = useState(null)
+
+  const updateUser = (user) => setCurrentUser(user)
+
+  console.log(currentUser)
+
   return (
     <div className="App">
-      <Login/>
+      <Login updateUser={updateUser}/>
       {/* <Switch>
         <Route path="/login">
           <Login/>
