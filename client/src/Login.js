@@ -1,11 +1,17 @@
-import { useState } from "react";
+// import { useContext, useState } from "react";
+// import { UserContext } from "./App";
+// import { useHistory } from "react-router-dom";
+import { useState } from "react"
 
 function Login({updateUser}) {
     const [formData, setFormData] = useState({
         username: "",
         password: ""
     })
+    // const hi = useContext(UserContext)
+    // console.log(hi)
     const [errors, setErrors] = useState([])
+    // const history = useHistory()
 
     const {username, password} = formData
 
@@ -32,7 +38,7 @@ function Login({updateUser}) {
             if (res.ok) {
                 res.json().then(user => {
                     updateUser(user)
-                    console.log(user)
+                    // history.push(`/users/${id}`)
                 })
             } else {
                 res.json().then(data => setErrors(data.errors))
