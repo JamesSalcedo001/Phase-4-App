@@ -13,11 +13,11 @@ private
 
 def is_authorized?
   permitted = current_user.admin?
-  render json: {errors: {user: "does not have admin permissions"}}, status: :forbidden unless permitted
+  render json: {errors: {user: "does not have admin permissions - AC"}}, status: :forbidden unless permitted
 end
 
 def authenticate_user
-  render json: {errors: {user: "Please Log In First"}}, status: :unauthorized unless current_user
+  render json: {errors: {user: "Please Log In First - AC"}}, status: :unauthorized unless current_user
 end
 
 def render_unprocessable_entity(invalid)
