@@ -3,13 +3,12 @@ import { useState, useEffect } from 'react';
 import Login from './Login';
 import User from './User';
 import { Route, Switch } from 'react-router-dom';
-import { createContext } from 'react';
+import Header from './Header';
 
-export const UserContext = createContext()
 
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null)
+  const [currentUser, setCurrentUser] = useState("")
 
   useEffect(() => {
     fetch("/authenticate_user")
@@ -24,22 +23,29 @@ function App() {
   },[])
 
   const updateUser = (user) => setCurrentUser(user)
-console.log(currentUser)
 
   return (
-    <UserContext.Provider value={currentUser}>
+   
     <div className="App">
+      <Header/>
+      {!currentUser ? <Login updateUser={updateUser}/> :
       <Switch>
-        <Route path="/login">
-          <Login updateUser={updateUser}/>
+
+        <Route path="/users/new">
+          <Signup updateUser={updateUser}/>
         </Route>
 
         <Route path="/users/:id">
-          <User updateUser={updateUser}/>
+          <User updateUser={updateUser} />
         </Route>
+
+        <Route path="/login">
+          <Login updateUser={updateUser}/>
+        </Route>
+      
       </Switch>
+      }
     </div>
-    </UserContext.Provider>
   );
 }
 

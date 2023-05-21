@@ -1,22 +1,17 @@
-// import { useState} from "react";
-// import { useParams } from "react-router-dom";
-
+import { useState} from "react";
 import { useContext } from "react";
 import { UserContext } from "./App";
 
-function User() {
-    // const [errors, setErrors] = useState([])
-    // const [user, setUser] = useState([])
-    const hi = useContext(UserContext)
-    console.log(hi.username)
-
+function User({updateUser}) {
+    const [errors, setErrors] = useState([])
+ 
     // useEffect(() => {
-    //     fetch(`/users/${id}`)
+    //     fetch(`/users/${hi.id}`)
     //     .then(res => {
     //         if(res.ok) {
     //             res.json().then(user => {
-    //                 setUser(user)
-    //                 console.log(user)
+    //                 updateUser(user)
+    //                 console.log(hi)
     //             })
     //         } else {
     //             res.json().then(data => setErrors(data))
@@ -24,9 +19,10 @@ function User() {
     //     })
     // },[])
 
-    // if (errors) return <h1>{errors}</h1>
+    if (errors) return <h1>{errors}</h1>
     return (
         <div>
+            {user}
         </div>
     )
 }

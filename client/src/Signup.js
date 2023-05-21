@@ -1,28 +1,28 @@
-// import { useContext, useState } from "react";
-// import { UserContext } from "./App";
 import {useHistory} from "react-router-dom";
 import React, { useState } from "react"
 
 
-function Login({updateUser}) {
+function Signup({updateUser}) {
     const [formData, setFormData] = useState({
         username: "",
-        password: ""
+        password: "",
+        avatar: ""
     })
 
     const [errors, setErrors] = useState([])
     const history = useHistory()
 
-    const {username, password} = formData
+    const {username, password, avatar} = formData
 
     function submit(e) {
         e.preventDefault()
         const user = {
             username,
-            password
+            password,
+            avatar
         }
 
-        fetch(`/login`, {
+        fetch(`/users`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -36,7 +36,7 @@ function Login({updateUser}) {
                     history.push(`/users/${user.id}`)
                 })
             } else {
-                res.json().then(obj => setErrors(obj.errors))
+                res.json().then(obj => setErrors(Object.entries(obj.errors)))
             }
         })
     }
@@ -53,11 +53,13 @@ function Login({updateUser}) {
                 <input value={username} onChange={changeHandler} name="username"  type="text"/>
                 <label htmlFor="password">password</label>
                 <input value={password} onChange={changeHandler} name="password"  type="password"/>
-                <input type="submit" value="Login!"/>
+                <label htmlFor="avatar">avatar</label>
+                <input value={avatar} onChange={changeHandler} name="avatar"  type="text"/>
+                <input type="submit" value="Sign Up!"/>
             </form>
-            {errors ? <div>{errors}</div> : null}
+            {errors ? errors.map(e => <div>{e[0]+': ' + e[1]}</div>) : null}
         </div>
     )
 }
 
-export default Login;
+export default Signup;
